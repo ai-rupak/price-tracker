@@ -1,10 +1,13 @@
 
 import HeroCarousael from '@/components/HeroCarousael'
+import ProductCard from '@/components/ProductCard'
 import Searchbar from '@/components/Searchbar'
+import { getAllProducts } from '@/lib/actions'
 import Image from 'next/image'
 import React from 'react'
 
-const page = () => {
+const page = async () => {
+  const allProducts = await getAllProducts();
   return (
     <>
     <section className='px-6 md:px-20 py-24 border-t-2 '>
@@ -39,7 +42,9 @@ const page = () => {
         Trending
       </h2>
       <div className='flex flex-wrap gap-x-8 gap-y-16'>
-
+      {allProducts?.map((product)=>(
+        <ProductCard key={product._id} product={product}/>
+      ))}
       </div>
     </section>
     </>
